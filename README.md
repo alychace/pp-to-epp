@@ -1,10 +1,8 @@
-## Power Profiles to AMD P-STATE Energy Performance Preference
+## Power Profiles to AMD & Intel P-STATE Energy Performance Preference
 
-There is a gap in modern Desktop Linux distros, from kernel 6.5+ as this kernel version is enabling AMD-PSTATE in active mode as default CPU driver on ZEN2+ machines, this is crucial especialy on notebooks when running as long as possible on battery is desirable.
+This fork is a stop-gap solution for those looking for proper AMD and Intel PSTATE driver power-saving and performance features to use automatically with Power Profiles Daemon.
 
-Unfortunately Power Profiles Daemon cannot talk to AMD-PSTATE driver directly leaving it unmanaged and inconsistent with whole system energy profile.
-
-This project is aiming to close this gap with monitoring Power Profiles current mode in the background and setting corresponding EPP profile for CPU.
+This daemon closes this gap by monitoring Power Profiles current mode in the background and setting corresponding EPP profile for CPU. Whereas previous solutions were limited to AMD or required replacing PPD with TLP, this daemon intelligently detects which driver is active and adjusts accordingly with respect to the user's chosen enery profile in Power Profiles Daemon.
 
 So far there are four modes of operation:
 
@@ -16,7 +14,7 @@ So far there are four modes of operation:
 
 There is no configuration required.
 
-Tested on Fedora 39 Silverblue with 6.5.6 kernel on ASUS Zephyrus g14 2021 AMD Ryzen 9 5900HS
+Tested on Fedora 39 Silverblue with 6.5.6 kernel on ASUS Zephyrus g14 2021 AMD Ryzen 9 5900HS, Asus Zephyrus 2023 AMD Ryzen 9 7840HS, and Lenovo Yoga 9i Gen 8 Intel Core i7 1360P.
 
 dependencies:
 * python3
@@ -27,9 +25,9 @@ dependencies:
 flake.nix:
 ```nix
 {
-  inputs.pp-to-amd-epp.url = github:marcinx64/pp-to-amd-epp;
+  inputs.pp-to-epp.url = github:alychace/pp-to-epp;
   # needed so there's no power-profiles-daemon version mismatch
-  inputs.pp-to-amd-epp.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.pp-to-epp.inputs.nixpkgs.follows = "nixpkgs";
   outputs = {self, nixpkgs, ...}@inputs: {
     # yourhostname being your actual system's hostname
     nixosConfigurations.yourhostname = nixpkgs.lib.nixosSystem {
@@ -47,10 +45,10 @@ configuration.nix:
 ```nix
 {
   imports = [
-    inputs.pp-to-amd-epp.nixosModules.pp-to-amd-epp
+    inputs.pp-to-epp.nixosModules.pp-to-epp
   ];
 
-  services.pp-to-amd-epp.enable = true;
+  services.pp-to-epp.enable = true;
 }
 ```
 

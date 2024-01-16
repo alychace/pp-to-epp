@@ -1,5 +1,5 @@
 {
-  description = "Power Profiles Daemon to AMD P-STATE EPP";
+  description = "Power Profiles Daemon to P-STATE EPP";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
@@ -14,13 +14,13 @@
     withPkgsFor = fn: nixpkgs.lib.genAttrs systems (system: fn system nixpkgs.legacyPackages.${system});
   in {
     nixosModules = rec {
-      pp-to-amd-epp = import ./nix/nixos-module.nix self;
-      default = self.nixosModules.pp-to-amd-epp;
+      pp-to-epp = import ./nix/nixos-module.nix self;
+      default = self.nixosModules.pp-to-epp;
     };
 
     packages = withPkgsFor (_: pkgs: rec  {
-      pp-to-amd-epp = pkgs.callPackage ./nix/package.nix {};
-      default = pp-to-amd-epp;
+      pp-to-epp = pkgs.callPackage ./nix/package.nix {};
+      default = pp-to-epp;
     });
   };
 }

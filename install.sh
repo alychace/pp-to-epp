@@ -15,13 +15,13 @@ if [ ! -d "$DIR" ]; then
 fi
 
 # Copy files
-cp $PWD/pp-to-amd-epp.service /etc/systemd/system/
-cp $PWD/pp-to-amd-epp /usr/local/bin
+cp $PWD/pp-to-epp.service /etc/systemd/system/
+cp $PWD/pp-to-epp /usr/local/bin
 
 # Set permissions
-chown root:root /usr/local/bin/pp-to-amd-epp /etc/systemd/system/pp-to-amd-epp.service
-chmod 655 /usr/local/bin/pp-to-amd-epp /etc/systemd/system/pp-to-amd-epp.service
-chmod +x /usr/local/bin/pp-to-amd-epp
+chown root:root /usr/local/bin/pp-to-epp /etc/systemd/system/pp-to-epp.service
+chmod 655 /usr/local/bin/pp-to-epp /etc/systemd/system/pp-to-epp.service
+chmod +x /usr/local/bin/pp-to-epp
 
 # Enable systemd service
-systemctl enable --now pp-to-amd-epp.service
+systemctl enable --now pp-to-epp.service

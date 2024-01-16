@@ -125,16 +125,20 @@ def main():
         time.sleep(2)
         
 if __name__ == "__main__":
+    if os.path.isfile(PATH_AMD_PSTATE_STATUS):
+        PATH_PSTATE_STATUS = PATH_AMD_PSTATE_STATUS
+    else:
+        PATH_PSTATE_STATUS = PATH_INTEL_PSTATE_STATUS
     try:
-        with open(PATH_AMD_PSTATE_STATUS, "r") as f:
+        with open(PATH_PSTATE_STATUS, "r") as f:
             status = f.read().strip()
             f.close()
             if status != "active":
-                log.error(f'AMD-PSTATE mode is unsupported: {status}')
+                log.error(f'PSTATE mode is unsupported: {status}')
                 exit(1)
-            log.info(f'AMD-PSTATE in {status} mode')
+            log.info(f'PSTATE in {status} mode')
     except(FileNotFoundError):
-        log.error("Path not found (is AMD-PSTATE enabled?)")
+        log.error("Path not found (is PSTATE enabled?)")
         exit(1)
 
     if UID != 0:

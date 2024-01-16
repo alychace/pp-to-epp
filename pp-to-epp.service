@@ -1,5 +1,5 @@
 [Unit]
-Description=Power Profiles Daemon to AMD-PSTATE EPP
+Description=Power Profiles Daemon to APSTATE EPP
 Requires=power-profiles-daemon.service
 After=power-profiles-daemon.service
 
@@ -7,7 +7,7 @@ After=power-profiles-daemon.service
 Type=simple
 Restart=on-failure
 User=root
-ExecStart=python3 /usr/local/bin/pp-to-amd-epp
+ExecStart=python3 /usr/local/bin/pp-to-epp
 
 [Install]
 WantedBy=multi-user.target

@@ -1,3 +1,5 @@
+
+# **Warning: No longer needed with version 0.20 or higher of power-profiles-daemon.**
 ## Power Profiles to AMD & Intel P-STATE Energy Performance Preference
 
 This fork is a stop-gap solution for those looking for proper AMD and Intel PSTATE driver power-saving and performance features to use automatically with Power Profiles Daemon.
